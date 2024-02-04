@@ -41,4 +41,9 @@ public class EmpServiceImpl implements EmpService{
     public Employee updateEmpWhenAddedInAProject(int pid, int status, int eid) {
         return empRepository.updateEmp(pid,status,eid);
     }
+
+    @Override
+    public List<Employee> getAvailableEmp(int status) {
+        return empRepository.getEmployeesByStatusEquals(status);
+    }
 }

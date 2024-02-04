@@ -19,5 +19,7 @@ public interface EmpService{
 
     Employee updateEmpWhenAddedInAProject(int pid, int status, int eid);
 
+    List<Employee> getAvailableEmp(int status);
+
 
 }

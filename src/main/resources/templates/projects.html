@@ -11,7 +11,7 @@
         <h2 class="text-center mb-4">DSi Project List</h2>
         <table class="table table-success table-striped">
             <thead>
-            <tr>
+            <tr class="text-center">
                 <th scope="col">Project ID</th>
                 <th scope="col">Project Name</th>
                 <th scope="col">Description</th>
@@ -23,7 +23,7 @@
             <tr th:each="proj : ${projects}" th:with="uri = '/projects/'+${proj.getProjectId()}">
                 <td th:text="${proj.getProjectId()}"></td>
                 <td><a th:href="${uri}" th:text="${proj.getProjectName()}"></a></td>
-                <td th:text="${proj.description}"></td>
+                <td th:text="${proj.description.substring(0,100) + '...'}"></td>
                 <td th:text="${proj.getStartDate()}"></td>
                 <td th:text="${proj.getDeadline()}"></td>
             </tr>

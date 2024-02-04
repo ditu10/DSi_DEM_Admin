@@ -9,10 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,7 +23,7 @@ public class ProjectController {
 
     @GetMapping("/add_project")
     public String addProject(Model model){
-        List<Employee> employeeList = empService.getAll();
+        List<Employee> employeeList = empService.getAvailableEmp(0);
         model.addAttribute("employees", employeeList);
         return "addProjectForm";
     }
