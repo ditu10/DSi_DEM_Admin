@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +53,14 @@ public class ProjectController {
     public String showSingleProject(@PathVariable("id") int id , Model model){
         Project p = projService.getById(id);
         model.addAttribute("project",p);
+        LocalDate t1 = p.getStartDate();
+        LocalDate t2 = p.getDeadline();
+        LocalDate today = LocalDate.now();
+        long daysDifference = ChronoUnit.DAYS.between(t1, t2);
+        long remaining = ChronoUnit.DAYS.between(today, t2);
+        model.addAttribute("duration",daysDifference);
+        model.addAttribute("remaining",remaining);
+
         return "project";
     }
 }

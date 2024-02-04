@@ -17,6 +17,6 @@ public interface EmpRepository extends JpaRepository<Employee, Integer> {
 
     @Query(value = "update employee set project_proj_id =:pid , status =:status where emp_id =:eid" , nativeQuery = true)
     Employee updateEmp(@Param("pid") int pid, @Param("status") int status, @Param("eid") int eid);
-
+    List<Employee> getEmployeesByStatusEquals(int status);
 
 }
