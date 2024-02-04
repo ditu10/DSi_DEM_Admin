@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -29,9 +30,19 @@ public class ProjectController {
         return "addProjectForm";
     }
     @PostMapping("/project")
-    public String handleAddProject(@ModelAttribute Project project) {
+    public String handleAddProject(@ModelAttribute("projects") Project project) {
+        List<Employee> emp = new ArrayList<>();
+        for(Employee e : project.getEmployeeList()) {
+
+        }
+
+        project.setEmployeeList(emp);
+
         Project p = projService.save(project);
+
+        System.out.println("----------------");
         System.out.println(p);
+
         return "redirect:/projects";
 
     }

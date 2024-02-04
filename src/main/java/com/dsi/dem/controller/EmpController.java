@@ -11,6 +11,7 @@ import java.util.List;
 
 @Controller
 public class EmpController {
+
     @Autowired
     EmpService empService;
     @GetMapping("/add_employee")
@@ -32,5 +33,12 @@ public class EmpController {
         System.out.println(employeeList);
         model.addAttribute("employees", employeeList);
         return "employees";
+    }
+
+    @GetMapping("/employees/{id}")
+    @ResponseBody
+    public String showEmployee(@PathVariable("id") int id, Model model){
+        Employee e = empService.getEmpById(id);
+        return e.toString();
     }
 }

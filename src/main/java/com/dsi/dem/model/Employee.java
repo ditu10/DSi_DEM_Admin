@@ -23,11 +23,22 @@ public class Employee {
     private int status;
 
     @ManyToOne
-    @JoinColumn(name = "project_id")
     @JsonIgnore
     private Project project;
 
     public Employee() {
+    }
+
+    public Employee(int empId, String fullName, String email, LocalDate joiningDate, String designation, String address, String phone, int status, Project project) {
+        this.empId = empId;
+        this.fullName = fullName;
+        this.email = email;
+        this.joiningDate = joiningDate;
+        this.designation = designation;
+        this.address = address;
+        this.phone = phone;
+        this.status = status;
+        this.project = project;
     }
 
     public String getEmail() {

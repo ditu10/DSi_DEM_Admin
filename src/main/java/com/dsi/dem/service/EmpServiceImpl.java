@@ -22,8 +22,18 @@ public class EmpServiceImpl implements EmpService{
         return empRepository.findAll();
     }
 
-    @Override
-    public void updateProject(List<Employee> employees, Project project) {
 
+    @Override
+    public Employee getById(int id) {
+        Optional<Employee> e = empRepository.findById(id);
+        if(e.isPresent()){
+            return e.get();
+        }
+        return null;
+    }
+
+    @Override
+    public Employee getEmpById(int id) {
+        return empRepository.getEmp(id);
     }
 }
