@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout('Projects',~{::project_div})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="project_div" class="container ">
+
+    <div class="my-3">
+        <h2 class="text-center mb-4">DSi Project List</h2>
+        <table class="table table-success table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Project ID</th>
+                <th scope="col">Project Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">Deadline</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="proj : ${projects}" th:with="uri = '/projects/'+${proj.getProjectId()}">
+                <td th:text="${proj.getProjectId()}"></td>
+                <td><a th:href="${uri}" th:text="${proj.getProjectName()}"></a></td>
+                <td th:text="${proj.description}"></td>
+                <td th:text="${proj.getStartDate()}"></td>
+                <td th:text="${proj.getDeadline()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,6 +1,9 @@
 package com.dsi.dem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,8 +29,19 @@ public class Project {
     private LocalDate startDate;
     private LocalDate deadline;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project" , cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Employee> employeeList;
+
+//    @PrePersist
+//    @PreUpdate
+//    public void updateEmployeesProjectId() {
+//        if (employeeList != null) {
+//            for (Employee employee : employeeList) {
+//                employee.setProject(this);
+//            }
+//        }
+//    }
 
     public Project(){
     }

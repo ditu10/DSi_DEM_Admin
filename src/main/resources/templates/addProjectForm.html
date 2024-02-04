@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="base::layout('Add Project',~{::projectFormDiv})">
+<head>
+    <meta charset="UTF-8">
+    <title>add project</title>
+</head>
+<body>
+    <div class="container" th:fragment="projectFormDiv">
+        <h2 class="text-center">Add a new Project</h2>
+        <form action="project" method="post">
+            <div class="mb-3">
+                <label for="projectName" class="form-label">Project Name</label>
+                <input type="text" class="form-control" name="projectName" id="projectName" aria-describedby="projectName">
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Project Description</label>
+                <textarea class="form-control" id="description" name="description" rows="6"></textarea>
+            </div>
+            <div class="row row-cols-2">
+                <div class="mb-3">
+                    <label for="startDate" class="form-label">Project Start Date</label>
+                    <input type="date" name="startDate" class="form-control" id="startDate">
+                </div>
+                <div class="mb-3">
+                    <label for="deadline" class="form-label">Project Deadline</label>
+                    <input type="date" name="deadline" class="form-control" id="deadline">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="employeeList" class="form-label">Available Employees</label>
+                <select id="employeeList"  class="form-select border-3" name="employeeList" multiple="multiple">
+                    <option th:each="emp: ${employees}" th:value="${emp.getEmpId()}"><span th:text="${emp.getFullName()}"></span></option>
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="status" class="form-label">Select Employees</label>
+                <select id="status" class="form-select" name="status">
+                    <option selected value="Ongoing">Ongoing</option>
+                    <option value="Finished">Finished</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Maintenance">Maintenance</option>
+                </select>
+            </div>
+<!--            <div class="mb-3">-->
+<!--                <label for="status" class="form-label">Status</label>-->
+<!--                <input type="text" name="status" class="form-control" value="0" id="status">-->
+<!--            </div>-->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+
+
+    </div>
+</body>
+</html>

@@ -1,5 +1,7 @@
 package com.dsi.dem.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -21,6 +23,8 @@ public class Employee {
     private int status;
 
     @ManyToOne
+    @JoinColumn(name = "project_id")
+    @JsonIgnore
     private Project project;
 
     public Employee() {

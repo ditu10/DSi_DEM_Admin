@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="base::layout(${project.getProjectName()},~{::project-div})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="container text-center"  th:fragment="project-div">
+        <h2 th:text="${project.getProjectName()}"></h2>
+        <h4>Description:</h4>
+        <p th:text="${project.getDescription()}"></p>
+        <h4>Project Start Date: <span th:text="${project.getStartDate()}"></span> </h4>
+        <h4>Project Deadline: <span th:text="${project.getDeadline()}"></span> </h4>
+        <h4 th:text="${project.getEmployeeList()}"></h4>
+    </div>
+</body>
+</html>
