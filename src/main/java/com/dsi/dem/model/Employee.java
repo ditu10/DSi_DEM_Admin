@@ -2,6 +2,7 @@ package com.dsi.dem.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -22,7 +23,8 @@ public class Employee {
     private String phone;
     private int status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+//    @JsonBackReference
     @JsonIgnore
     private Project project;
 
@@ -113,18 +115,18 @@ public class Employee {
         this.designation = designation;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "empId=" + empId +
-                ", fullName='" + fullName + '\'' +
-                ", email='" + email + '\'' +
-                ", joiningDate=" + joiningDate +
-                ", designation='" + designation + '\'' +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
-                ", status=" + status +
-                ", project=" + project +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Employee{" +
+//                "empId=" + empId +
+//                ", fullName='" + fullName + '\'' +
+//                ", email='" + email + '\'' +
+//                ", joiningDate=" + joiningDate +
+//                ", designation='" + designation + '\'' +
+//                ", address='" + address + '\'' +
+//                ", phone='" + phone + '\'' +
+//                ", status=" + status +
+//                ", project=" + project.getProjectName() +
+//                '}';
+//    }
 }

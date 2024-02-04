@@ -35,10 +35,10 @@ public class EmpController {
         return "employees";
     }
 
-    @GetMapping("/employees/{id}")
-    @ResponseBody
+    @GetMapping("/employee/{id}")
     public String showEmployee(@PathVariable("id") int id, Model model){
         Employee e = empService.getEmpById(id);
-        return e.toString();
+        model.addAttribute("emp",e);
+        return "employee";
     }
 }

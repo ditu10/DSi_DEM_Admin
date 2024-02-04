@@ -1,17 +1,52 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="base::layout(${project.getProjectName()},~{::project-div})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(${project.getProjectName()},~{::project-div})">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <div class="container text-center"  th:fragment="project-div">
+    <div class="container mt-4"  th:fragment="project-div">
+
         <h2 th:text="${project.getProjectName()}"></h2>
-        <h4>Description:</h4>
-        <p th:text="${project.getDescription()}"></p>
-        <h4>Project Start Date: <span th:text="${project.getStartDate()}"></span> </h4>
-        <h4>Project Deadline: <span th:text="${project.getDeadline()}"></span> </h4>
-        <h4 th:text="${project.getEmployeeList()}"></h4>
+        <div class="py-2">
+            <h4>Description:</h4>
+            <p th:text="${project.getDescription()}"></p>
+        </div>
+
+        <div>
+            <p><strong>Date: </strong>
+                <span th:text="${project.getStartDate()}"></span> to
+                <span th:text="${project.getDeadline()}"></span>
+            </p>
+
+        </div>
+
+
+
+        <h4>Employees:</h4>
+
+        <div th:with="employees = ${project.getEmployeeList()}">
+            <table class="table table-success table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Emp ID</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Designation</th>
+                    <th scope="col">Joining Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="emp : ${employees}" th:with="uri = '/employee/'+${emp.getEmpId()}">
+                    <td th:text="${emp.empId}"></td>
+                    <td><a th:href="${uri}" th:text="${emp.fullName}"></a></td>
+                    <td th:text="${emp.designation}"></td>
+                    <td th:text="${emp.joiningDate}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        </div>
     </div>
 </body>
 </html>

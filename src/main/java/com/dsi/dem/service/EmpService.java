@@ -17,5 +17,7 @@ public interface EmpService{
 
     Employee getEmpById(int id);
 
+    Employee updateEmpWhenAddedInAProject(int pid, int status, int eid);
+
 
 }

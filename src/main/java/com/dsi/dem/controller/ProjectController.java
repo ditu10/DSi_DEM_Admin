@@ -7,10 +7,7 @@ import com.dsi.dem.service.ProjService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,23 +28,18 @@ public class ProjectController {
     }
     @PostMapping("/project")
     public String handleAddProject(@ModelAttribute("projects") Project project) {
-        List<Employee> emp = new ArrayList<>();
-        for(Employee e : project.getEmployeeList()) {
-
+        for(Employee e: project.getEmployeeList()){
+            e.setProject(project);
+            e.setStatus(1);
         }
-
-        project.setEmployeeList(emp);
-
         Project p = projService.save(project);
-
-        System.out.println("----------------");
-        System.out.println(p);
 
         return "redirect:/projects";
 
     }
 
     @GetMapping("/projects")
+
     public String showProjects(Model model){
         List<Project> projects = projService.getAll();
         model.addAttribute("projects", projects);

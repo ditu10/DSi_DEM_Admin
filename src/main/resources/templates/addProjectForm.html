@@ -30,8 +30,9 @@
             <div class="mb-3">
                 <label for="employeeList" class="form-label">Available Employees</label>
                 <select id="employeeList"  class="form-select border-3" name="employeeList" multiple="multiple">
-                    <option th:each="emp: ${employees}" th:value="${emp.getEmpId()}"><span th:text="${emp.getFullName()}"></span></option>
-
+                    <option th:each="emp: ${employees}" th:value="${emp.getEmpId()}">
+                        <span th:text="${emp.getFullName()}"></span>
+                    </option>
                 </select>
             </div>
 

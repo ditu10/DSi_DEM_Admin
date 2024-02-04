@@ -21,7 +21,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="emp : ${employees}" th:with="uri = '/employees/'+${emp.getEmpId()}">
+                <tr th:each="emp : ${employees}" th:with="uri = '/employee/'+${emp.getEmpId()}">
                     <td th:text="${emp.empId}"></td>
                     <td><a th:href="${uri}" th:text="${emp.fullName}"></a></td>
                     <td th:text="${emp.designation}"></td>
