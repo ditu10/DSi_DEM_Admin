@@ -33,13 +33,14 @@
 
         <div th:with="employees = ${project.getEmployeeList()}">
             <h4 class="pb-2">Employees:</h4>
-            <table class="table table-success table-striped">
+            <table class="table text-center table-success table-striped">
                 <thead>
                 <tr>
                     <th scope="col">Emp ID</th>
                     <th scope="col">Full Name</th>
                     <th scope="col">Designation</th>
                     <th scope="col">Joining Date</th>
+                    <th scope="col">Remove Emp</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -48,6 +49,15 @@
                     <td><a th:href="${uri}" th:text="${emp.fullName}"></a></td>
                     <td th:text="${emp.designation}"></td>
                     <td th:text="${emp.joiningDate}"></td>
+                    <td>
+                        <form action="/removeEmp" method="post">
+                            <button type="submit" class="border-0">
+                                <input type="number" name="empId" th:value="${emp.getEmpId()}" hidden="hidden">
+                                <input type="number" name="projId" th:value="${project.getProjectId()}" hidden="hidden">
+                                <img style="width: 30px" src="/image/user.png" alt="user.png">
+                            </button>
+                        </form>
+                    </td>
                 </tr>
                 </tbody>
             </table>

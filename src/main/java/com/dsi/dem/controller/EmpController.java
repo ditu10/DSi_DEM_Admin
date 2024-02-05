@@ -1,7 +1,9 @@
 package com.dsi.dem.controller;
 
 import com.dsi.dem.model.Employee;
+import com.dsi.dem.model.Project;
 import com.dsi.dem.service.EmpService;
+import com.dsi.dem.service.ProjService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -16,6 +19,8 @@ public class EmpController {
 
     @Autowired
     EmpService empService;
+    @Autowired
+    ProjService projService;
     @GetMapping("/add_employee")
     public String AddEmpForm(){
         return "AddEmpForm";
@@ -52,5 +57,26 @@ public class EmpController {
         model.addAttribute("year", year);
         model.addAttribute("month", month);
         return "employee";
+    }
+
+    @PostMapping("/removeEmp")
+    @ResponseBody
+    public String handleRemoveEmpFromProject(@RequestParam("empId") int eid, @RequestParam("projId") int pid){
+        Project project = projService.getById(pid);
+        List<Employee> newEmpList = new ArrayList<>();
+
+        for(Employee employee : project.getEmployeeList()){
+            if(employee.getEmpId() == eid){
+                System.out.println(employee.getEmpId() + " " + employee.getFullName());
+//                project.getEmployeeList().remove(employee);
+                employee.setStatus(0);
+                employee.setProject(null);
+            }else{
+                newEmpList.add(employee);
+            }
+        }
+        project.setEmployeeList(newEmpList);
+        projService.save(project);
+        return "empId = "+eid;
     }
 }
