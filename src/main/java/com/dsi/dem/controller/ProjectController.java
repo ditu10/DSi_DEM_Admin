@@ -29,10 +29,13 @@ public class ProjectController {
     }
     @PostMapping("/project")
     public String handleAddProject(@ModelAttribute("projects") Project project) {
-        for(Employee e: project.getEmployeeList()){
-            e.setProject(project);
-            e.setStatus(1);
+        if(project.getEmployeeList() != null){
+            for(Employee e: project.getEmployeeList()){
+                e.setProject(project);
+                e.setStatus(1);
+            }
         }
+
         Project p = projService.save(project);
 
         return "redirect:/projects";

@@ -23,7 +23,9 @@
             <tr th:each="proj : ${projects}" th:with="uri = '/projects/'+${proj.getProjectId()}">
                 <td th:text="${proj.getProjectId()}"></td>
                 <td><a th:href="${uri}" th:text="${proj.getProjectName()}"></a></td>
-                <td th:text="${proj.description.substring(0,100) + '...'}"></td>
+                <td th:text="${proj.getDescription().length()>100}?
+                    ${proj.getDescription().substring(0,100)}:
+                       ${proj.getDescription()} "></td>
                 <td th:text="${proj.getStartDate()}"></td>
                 <td th:text="${proj.getDeadline()}"></td>
             </tr>

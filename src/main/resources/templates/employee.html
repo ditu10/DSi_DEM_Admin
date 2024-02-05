@@ -5,51 +5,41 @@
     <title>Title</title>
 </head>
 <body>
-    <div th:fragment="emp_div" class="container">
+    <div th:fragment="emp_div" class="container  mt-4">
         <h2 class="text-center py-2 rounded" style="background: #84cbff" th:text="${emp.getFullName()}"></h2>
-        <div class="py-2">
-            <h5>Designation:</h5>
-            <p th:text="${emp.getDesignation()}"></p>
-        </div>
 
-        <div class="py-2">
-            <p><strong>Joining Date: </strong>
-                <span th:text="${emp.getJoiningDate()}"></span>
-            </p>
-            <p><strong>Duration: </strong><span th:text="${year} + ' year ' +
+
+        <div class="">
+            <div class="py-2">
+                <h5>Designation:</h5>
+                <p th:text="${emp.getDesignation()}"></p>
+            </div>
+
+            <div class="py-2">
+                <p><strong>Joining Date: </strong>
+                    <span th:text="${emp.getJoiningDate()}"></span>
+                </p>
+                <p><strong>Duration: </strong><span th:text="${year} + ' year ' +
                 ${month} + ' months'"></span></p>
+            </div>
+            <div class="py-2">
+                <p><strong>Address: </strong> <span th:text="${emp.getAddress()}"></span></p>
+                <p><strong>Phone: </strong> <span th:text="${emp.getPhone()}"></span></p>
+                <p><strong>Email: </strong> <span th:text="${emp.getEmail()}"></span></p>
+            </div>
+
+            <div  th:with="uri = '/projects/'+${emp.getProject()?.getProjectId()}">
+                <p>
+                    <strong class="">Currently Assigned Project: </strong>
+                    <a th:href="${uri}">
+                        <span th:text="${emp.getProject()?.getProjectName()}"></span>
+                    </a>
+
+                </p>
+            </div>
         </div>
 
 
-<!--        <strong>Status:</strong>-->
-<!--        <div th:with="status = ${project.getStatus()}" th:switch="${status}">-->
-<!--            <p th:case="Ongoing" style="color: orangered">Ongoing</p>-->
-<!--            <p th:case="Finished" style="color: green">Finished</p>-->
-<!--            <p th:case="Maintenance" style="color: deepskyblue">Maintenance</p>-->
-<!--        </div>-->
-
-
-<!--        <div th:with="employees = ${project.getEmployeeList()}">-->
-<!--            <h4 class="pb-2">Employees:</h4>-->
-<!--            <table class="table table-success table-striped">-->
-<!--                <thead>-->
-<!--                <tr>-->
-<!--                    <th scope="col">Emp ID</th>-->
-<!--                    <th scope="col">Full Name</th>-->
-<!--                    <th scope="col">Designation</th>-->
-<!--                    <th scope="col">Joining Date</th>-->
-<!--                </tr>-->
-<!--                </thead>-->
-<!--                <tbody>-->
-<!--                <tr th:each="emp : ${employees}" th:with="uri = '/employee/'+${emp.getEmpId()}">-->
-<!--                    <td th:text="${emp.empId}"></td>-->
-<!--                    <td><a th:href="${uri}" th:text="${emp.fullName}"></a></td>-->
-<!--                    <td th:text="${emp.designation}"></td>-->
-<!--                    <td th:text="${emp.joiningDate}"></td>-->
-<!--                </tr>-->
-<!--                </tbody>-->
-<!--            </table>-->
-<!--        </div>-->
 
     </div>
 
