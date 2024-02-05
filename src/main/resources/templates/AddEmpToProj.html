@@ -6,7 +6,7 @@
 </head>
 <body>
     <div class="container mt-4" th:fragment="EmpToProj" th:with="uri = '/projects/' + ${proj_id}">
-        <h2 class="text-center">Add Employees to the <a th:href="${uri}"><span  th:text="${proj_name}"></span></a> Project</h2>
+        <h2 class="text-center">Add Employees to the <a style=" text-decoration: none" th:href="${uri}"><span style="color: brown;"  th:text="${proj_name}"></span></a> Project</h2>
         <form th:action="@{/addEmpToProject}" method="post">
 
             <input type="number" hidden="hidden" name="projectId" th:value="${proj_id}">
@@ -22,7 +22,7 @@
 
 
             <div class="text-center">
-                <button type="submit" class="btn btn-primary">Add to Project</button>
+                <button type="submit" style="background: brown; color: white" class="btn ">Add to Project</button>
             </div>
         </form>
     </div>
