@@ -17,10 +17,18 @@ import java.util.List;
 @Controller
 public class EmpController {
 
-    @Autowired
-    EmpService empService;
-    @Autowired
-    ProjService projService;
+    // when you have a constructor with parameters,
+    // Spring automatically attempts to resolve the dependencies
+    // by matching the types of the parameters with the beans defined in the context
+    private final EmpService empService;
+    private final ProjService projService;
+
+    public EmpController(EmpService empService, ProjService projService){
+        this.empService = empService;
+        this.projService = projService;
+    }
+
+
     @GetMapping("/add_employee")
     public String AddEmpForm(){
         return "AddEmpForm";
@@ -60,7 +68,6 @@ public class EmpController {
     }
 
     @PostMapping("/removeEmp")
-    @ResponseBody
     public String handleRemoveEmpFromProject(@RequestParam("empId") int eid, @RequestParam("projId") int pid){
         Project project = projService.getById(pid);
         List<Employee> newEmpList = new ArrayList<>();
@@ -77,6 +84,21 @@ public class EmpController {
         }
         project.setEmployeeList(newEmpList);
         projService.save(project);
-        return "empId = "+eid;
+        return "redirect:/projects/"+pid;
+    }
+
+    @GetMapping("/editEmployee/{id}")
+    public String editEmployee(@PathVariable("id") int id, Model model){
+        Employee emp = empService.getEmpById(id);
+        model.addAttribute("emp", emp);
+//        return emp.getFullName();
+        return "editEmpForm";
+    }
+
+    @PostMapping("/editEmployee")
+    public String editEmpDetails(@ModelAttribute Employee employee, Model model){
+        Employee emp = empService.save(employee);
+        model.addAttribute("emp",emp);
+        return "redirect:/employee/"+emp.getEmpId();
     }
 }

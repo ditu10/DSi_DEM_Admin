@@ -7,8 +7,6 @@
 <body>
     <div th:fragment="emp_div" class="container  mt-4">
         <h2 class="text-center py-2 rounded" style="background: #84cbff" th:text="${emp.getFullName()}"></h2>
-
-
         <div class="">
             <div class="py-2">
                 <h5>Designation:</h5>
@@ -37,10 +35,14 @@
 
                 </p>
             </div>
+            <div th:with="url = '/editEmployee/' + ${emp.getEmpId()}" class="text-center">
+                <a th:href="${url}">
+                    <img style="width: 50px" src="/image/update.png" alt="">
+                    <p>Edit Profile</p>
+                </a>
+
+            </div>
         </div>
-
-
-
     </div>
 
 
