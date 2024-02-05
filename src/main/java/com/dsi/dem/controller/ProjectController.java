@@ -64,4 +64,31 @@ public class ProjectController {
 
         return "project";
     }
+
+    @PostMapping("/addEmployeeToProject")
+    public String addEmpToProject(@RequestParam("projectId") int projId,@RequestParam("projectName") String projName, Model model){
+        List<Employee> employeeList = empService.getAvailableEmp(0);
+        model.addAttribute("employees", employeeList);
+        model.addAttribute("proj_id", projId);
+        model.addAttribute("proj_name", projName);
+        return "AddEmpToProj";
+    }
+
+    @PostMapping("/addEmpToProject")
+    public String addEmpToProject(@RequestParam("employeeList") List<Employee> employeeList,
+                                  @RequestParam("projectId") int projectId,
+                                  Model model){
+        Project project = projService.getById(projectId);
+
+        if(!employeeList.isEmpty()){
+            for(Employee e : employeeList){
+                project.getEmployeeList().add(e);
+                e.setProject(project);
+                e.setStatus(1);
+            }
+        }
+
+        projService.save(project);
+        return "redirect:projects/"+projectId;
+    }
 }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout('Add Emp to Project',~{::EmpToProj})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="container mt-4" th:fragment="EmpToProj" th:with="uri = '/projects/' + ${proj_id}">
+        <h2 class="text-center">Add Employees to the <a th:href="${uri}"><span  th:text="${proj_name}"></span></a> Project</h2>
+        <form th:action="@{/addEmpToProject}" method="post">
+
+            <input type="number" hidden="hidden" name="projectId" th:value="${proj_id}">
+
+            <div class="mb-3">
+                <label for="employeeList" class="form-label">Available Employees</label>
+                <select id="employeeList"  class="form-select border-3" name="employeeList" multiple="multiple">
+                    <option th:each="emp: ${employees}" th:value="${emp.getEmpId()}">
+                        <span th:text="${emp.getEmpId()} + ' : ' + ${emp.getFullName()} + ' (' + ${emp.getDesignation()} + ')'"></span>
+                    </option>
+                </select>
+            </div>
+
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Add to Project</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

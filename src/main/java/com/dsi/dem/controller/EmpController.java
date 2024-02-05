@@ -90,6 +90,7 @@ public class EmpController {
     @GetMapping("/editEmployee/{id}")
     public String editEmployee(@PathVariable("id") int id, Model model){
         Employee emp = empService.getEmpById(id);
+
         model.addAttribute("emp", emp);
 //        return emp.getFullName();
         return "editEmpForm";
@@ -98,6 +99,7 @@ public class EmpController {
     @PostMapping("/editEmployee")
     public String editEmpDetails(@ModelAttribute Employee employee, Model model){
         Employee emp = empService.save(employee);
+        System.out.println(emp.getProject());
         model.addAttribute("emp",emp);
         return "redirect:/employee/"+emp.getEmpId();
     }

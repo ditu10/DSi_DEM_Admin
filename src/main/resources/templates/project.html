@@ -51,9 +51,9 @@
                     <td th:text="${emp.joiningDate}"></td>
                     <td>
                         <form action="/removeEmp" method="post">
+                            <input type="number" name="empId" th:value="${emp.getEmpId()}" hidden="hidden">
+                            <input type="number" name="projId" th:value="${project.getProjectId()}" hidden="hidden">
                             <button type="submit" class="border-0">
-                                <input type="number" name="empId" th:value="${emp.getEmpId()}" hidden="hidden">
-                                <input type="number" name="projId" th:value="${project.getProjectId()}" hidden="hidden">
                                 <img style="width: 30px" src="/image/user.png" alt="user.png">
                             </button>
                         </form>
@@ -63,14 +63,15 @@
             </table>
         </div>
 
-        <a href="/addEmployeeToProject">
-            <div class="text-center mt-5">
+        <form class="text-center mt-5" action="/addEmployeeToProject" method="post">
+            <input type="number" hidden="hidden" name="projectId" th:value="${project.getProjectId()}">
+            <input type="text" hidden="hidden" name="projectName" th:value="${project.getProjectName()}">
+            <button type="submit" class="border-0 bg-light">
                 <img style="width: 50px" src="/image/add-user.png" alt="">
-                <p>Add Employee to this project</p>
-            </div>
-        </a>
+                <p>Add Employee</p>
+            </button>
+        </form>
 
         </div>
-    </div>
 </body>
 </html>

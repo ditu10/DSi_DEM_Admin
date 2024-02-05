@@ -35,6 +35,10 @@
                 <input type="date" th:value="${emp.getJoiningDate()}" name="joiningDate" class="form-control" id="joiningDate">
             </div>
             <div class="mb-3">
+<!--                <label for="" class="form-label">Joining Date</label>-->
+                <input type="number" hidden="hidden" th:value="${emp.getProject()?.getProjectId()}" name="project" class="form-control" >
+            </div>
+            <div class="mb-3">
                 <label for="designation" class="form-label">Designation</label>
                 <select  id="designation" class="form-select" name="designation">
                     <option value="Junior Software Engineer">Junior Software Engineer</option>
