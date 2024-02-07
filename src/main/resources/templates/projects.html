@@ -7,7 +7,7 @@
 <body>
 <div th:fragment="project_div" class="container ">
 
-    <div class="my-3">
+    <div class="my-4">
         <h2 class="text-center mb-4">DSi Project List</h2>
         <table class="table text-center table-success table-striped">
             <thead>
@@ -24,7 +24,7 @@
                 <td th:text="${proj.getProjectId()}"></td>
                 <td><a th:href="${uri}" th:text="${proj.getProjectName()}"></a></td>
                 <td th:text="${proj.getDescription().length()>100}?
-                    ${proj.getDescription().substring(0,100)}:
+                    ${proj.getDescription().substring(0,100)} + '...':
                        ${proj.getDescription()} "></td>
                 <td th:text="${proj.getStartDate()}"></td>
                 <td th:text="${proj.getDeadline()}"></td>

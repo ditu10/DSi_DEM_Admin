@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-    <div class="container mt-4" th:fragment="EmpToProj" th:with="uri = '/projects/' + ${proj_id}">
+    <div  style="background: #C7DBD2"  class="container py-4 px-2 text-dark bg-opacity-50 mt-4" th:fragment="EmpToProj" th:with="uri = '/projects/' + ${proj_id}">
         <h2 class="text-center">Add Employees to the <a style=" text-decoration: none" th:href="${uri}"><span style="color: brown;"  th:text="${proj_name}"></span></a> Project</h2>
         <form th:action="@{/addEmpToProject}" method="post">
 
