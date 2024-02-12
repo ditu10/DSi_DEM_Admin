@@ -113,18 +113,18 @@ public class Employee {
         this.designation = designation;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Employee{" +
-//                "empId=" + empId +
-//                ", fullName='" + fullName + '\'' +
-//                ", email='" + email + '\'' +
-//                ", joiningDate=" + joiningDate +
-//                ", designation='" + designation + '\'' +
-//                ", address='" + address + '\'' +
-//                ", phone='" + phone + '\'' +
-//                ", status=" + status +
-//                ", project=" + project.getProjectName() +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", joiningDate=" + joiningDate +
+                ", designation='" + designation + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", status=" + status +
+                ", project=" + project +
+                '}';
+    }
 }

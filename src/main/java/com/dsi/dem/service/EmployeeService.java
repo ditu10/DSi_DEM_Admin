@@ -2,6 +2,7 @@ package com.dsi.dem.service;
 
 import com.dsi.dem.dao.EmployeeRepository;
 import com.dsi.dem.model.Employee;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -9,7 +10,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Optional;
 
 
 @Service
@@ -21,8 +22,8 @@ public class EmployeeService{
         this.employeeRepository = employeeRepository;
     }
 
-    public void save(Employee emp) {
-        employeeRepository.save(emp);
+    public Employee save(Employee emp) {
+        return employeeRepository.save(emp);
     }
 
     public List<Employee> getAll(){
@@ -31,7 +32,11 @@ public class EmployeeService{
 
 
     public Employee getEmployeeById(int id) {
-        return employeeRepository.getEmployeeById(id);
+        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
+        if(optionalEmployee.isPresent()){
+            return optionalEmployee.get();
+        }
+        return null;
     }
 
 

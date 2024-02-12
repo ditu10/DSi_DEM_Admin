@@ -87,16 +87,16 @@ public class Project {
         this.employeeList = employeeList;
     }
 
-    @Override
-    public String toString() {
-        return "Project{" +
-                "id=" + id +
-                ", projectName='" + projectName + '\'' +
-                ", description='" + description + '\'' +
-                ", Status='" + Status + '\'' +
-                ", startDate=" + startDate +
-                ", deadline=" + deadline +
-                ", employeeList=" + employeeList +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Project{" +
+//                "id=" + id +
+//                ", projectName='" + projectName + '\'' +
+//                ", description='" + description + '\'' +
+//                ", Status='" + Status + '\'' +
+//                ", startDate=" + startDate +
+//                ", deadline=" + deadline +
+//                ", employeeList=" + employeeList +
+//                '}';
+//    }
 }

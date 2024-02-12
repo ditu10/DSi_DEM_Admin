@@ -3,6 +3,7 @@ package com.dsi.dem.controller;
 import com.dsi.dem.model.Employee;
 import com.dsi.dem.model.Project;
 import com.dsi.dem.service.*;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -77,13 +78,21 @@ public class EmployeeController {
     @GetMapping("/editEmployee/{id}")
     public String editEmployee(@PathVariable int id, Model model){
         Employee emp = employeeService.getEmployeeById(id);
+        System.out.println("\n\n");
+        System.out.println(emp);
+        System.out.println("\n\n");
         model.addAttribute("emp", emp);
         return "editEmployeeForm";
     }
 
     @PostMapping("/editEmployee")
     public String editEmpDetails(@ModelAttribute Employee employee, Model model){
-        employeeService.save(employee);
-        return "redirect:/employees/"+employee.getId();
+        System.out.println("\n\n");
+        System.out.println(employee);
+        System.out.println("\n\n");
+        Employee emp = employeeService.save(employee);
+        model.addAttribute(emp);
+
+        return "redirect:/employees/"+emp.getId();
     }
 }
