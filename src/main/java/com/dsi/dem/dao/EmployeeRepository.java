@@ -1,7 +1,6 @@
 package com.dsi.dem.dao;
 
 import com.dsi.dem.model.Employee;
-import com.dsi.dem.model.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,7 +10,7 @@ import java.util.List;
 
 
 @Repository
-public interface EmpRepository extends JpaRepository<Employee, Integer> {
+public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query(value = "select * from employee where id =:n" , nativeQuery = true)
     Employee getEmployeeById(@Param("n") int n);
 

@@ -1,8 +1,7 @@
 package com.dsi.dem.service;
 
-import com.dsi.dem.dao.EmpRepository;
+import com.dsi.dem.dao.EmployeeRepository;
 import com.dsi.dem.model.Employee;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,43 +15,33 @@ import java.util.Map;
 @Service
 public class EmployeeService{
 
-    EmpRepository empRepository;
+    EmployeeRepository employeeRepository;
 
-    public EmployeeService(EmpRepository empRepository){
-        this.empRepository = empRepository;
+    public EmployeeService(EmployeeRepository employeeRepository){
+        this.employeeRepository = employeeRepository;
     }
 
-    public Employee save(Employee emp) {
-        return empRepository.save(emp);
+    public void save(Employee emp) {
+        employeeRepository.save(emp);
     }
 
     public List<Employee> getAll(){
-        return empRepository.findAll();
+        return employeeRepository.findAll();
     }
 
 
-//    @Override
-//    public Employee getById(int id) {
-//        Optional<Employee> e = empRepository.findById(id);
-//        if(e.isPresent()){
-//            return e.get();
-//        }
-//        return null;
-//    }
-
-
     public Employee getEmployeeById(int id) {
-        return empRepository.getEmployeeById(id);
+        return employeeRepository.getEmployeeById(id);
     }
 
 
     public Employee updateEmpWhenAddedInAProject(int pid, int status, int eid) {
-        return empRepository.updateEmp(pid,status,eid);
+        return employeeRepository.updateEmp(pid,status,eid);
     }
 
 
     public List<Employee> getAvailableEmp(int status) {
-        return empRepository.getEmployeesByStatusEquals(status);
+        return employeeRepository.getEmployeesByStatusEquals(status);
     }
 
     public Map<String, Long> getEmployeeJobDuration(Employee employee){

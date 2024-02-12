@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +43,7 @@ public class EmployeeController {
         return "employees";
     }
 
-    @GetMapping("/employee/{id}")
+    @GetMapping("/employees/{id}")
     public String showEmployee(@PathVariable int id, Model model){
         Employee employee = employeeService.getEmployeeById(id);
         Map<String , Long> jobDuration = employeeService.getEmployeeJobDuration(employee);
@@ -56,13 +54,13 @@ public class EmployeeController {
         return "employee";
     }
 
-    @PostMapping("/removeEmp")
-    public String handleRemoveEmployeeFromProject(@RequestParam("empId") int eid, @RequestParam("projId") int pid){
-        Project project = projectService.getById(pid);
+    @PostMapping("/removeEmployee")
+    public String handleRemoveEmployeeFromProject(@RequestParam int employeeId, @RequestParam int projectId){
+        Project project = projectService.getById(projectId);
         List<Employee> newEmpList = new ArrayList<>();
 
         for(Employee employee : project.getEmployeeList()){
-            if(employee.getId() == eid){
+            if(employee.getId() == employeeId){
                 System.out.println(employee.getId() + " " + employee.getFullName());
 //                project.getEmployeeList().remove(employee);
                 employee.setStatus(0);
@@ -73,23 +71,19 @@ public class EmployeeController {
         }
         project.setEmployeeList(newEmpList);
         projectService.save(project);
-        return "redirect:/projects/"+pid;
+        return "redirect:/projects/"+projectId;
     }
 
     @GetMapping("/editEmployee/{id}")
     public String editEmployee(@PathVariable int id, Model model){
         Employee emp = employeeService.getEmployeeById(id);
-
         model.addAttribute("emp", emp);
-//        return emp.getFullName();
-        return "editEmpForm";
+        return "editEmployeeForm";
     }
 
     @PostMapping("/editEmployee")
     public String editEmpDetails(@ModelAttribute Employee employee, Model model){
-        Employee emp = employeeService.save(employee);
-        System.out.println(emp.getProject());
-        model.addAttribute("emp",emp);
-        return "redirect:/employee/"+emp.getId();
+        employeeService.save(employee);
+        return "redirect:/employees/"+employee.getId();
     }
 }

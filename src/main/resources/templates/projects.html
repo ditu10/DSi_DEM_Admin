@@ -9,7 +9,7 @@
 
     <div class="my-4">
         <h2 class="text-center mb-4">DSi Project List</h2>
-        <table class="table text-center table-success table-striped">
+        <table class="table text-center table-bordered table-success table-striped">
             <thead>
             <tr class="">
                 <th scope="col">Project ID</th>
@@ -20,14 +20,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="proj : ${projects}" th:with="uri = '/projects/'+${proj.getId()}">
-                <td th:text="${proj.getId()}"></td>
-                <td><a th:href="${uri}" th:text="${proj.getProjectName()}"></a></td>
-                <td th:text="${proj.getDescription().length()>100}?
-                    ${proj.getDescription().substring(0,100)} + '...':
-                       ${proj.getDescription()} "></td>
-                <td th:text="${proj.getStartDate()}"></td>
-                <td th:text="${proj.getDeadline()}"></td>
+            <tr th:each="project : ${projects}" th:with="uri = '/projects/'+${project.id}">
+                <td th:text="${project.id}"></td>
+                <td><a th:href="${uri}" th:text="${project.projectName}"></a></td>
+                <td th:text="${project.description.length()>100}?
+                    ${project.description.substring(0,100)} + '...':
+                       ${project.description} "></td>
+                <td th:text="${project.startDate}"></td>
+                <td th:text="${project.deadline}"></td>
             </tr>
             </tbody>
         </table>

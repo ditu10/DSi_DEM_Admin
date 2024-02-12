@@ -11,7 +11,7 @@
 
         <div class="my-3">
             <h2 class="text-center mb-4">DSi Employee List</h2>
-            <table class="table text-center table-success table-striped">
+            <table class="table text-center table-bordered table-success table-striped">
                 <thead>
                 <tr>
                     <th scope="col">Emp ID</th>
@@ -22,15 +22,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="emp : ${employees}" th:with="uri = '/employee/'+${emp.getId()}">
-                    <td th:text="${emp.getId()}"></td>
-                    <td><a th:href="${uri}" th:text="${emp.getFullName()}"></a></td>
-                    <td th:text="${emp.getDesignation()}"></td>
-                    <td th:text="${emp.getJoiningDate()}"></td>
-                    <td th:if="${emp.getProject()!=null}" th:with="uri = '/projects/'+${emp.getProject().getId()}">
-                        <a th:href="${uri}"><span th:text="${emp.getProject().getProjectName()}"></span></a>
+                <tr th:each="emp : ${employees}" th:with="uri = '/employees/'+${emp.id}">
+                    <td th:text="${emp.id}"></td>
+                    <td><a th:href="${uri}" th:text="${emp.fullName}"></a></td>
+                    <td th:text="${emp.designation}"></td>
+                    <td th:text="${emp.joiningDate}"></td>
+                    <td th:if="${emp.project!=null}" th:with="uri = '/projects/'+${emp.project.id}">
+                        <a th:href="${uri}"><span th:text="${emp.project.projectName}"></span></a>
                     </td>
-                    <td th:unless="${emp.getProject()!=null}" th:text="''"></td>
+                    <td th:unless="${emp.project!=null}" th:text="''"></td>
                 </tr>
                 </tbody>
             </table>

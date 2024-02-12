@@ -7,36 +7,36 @@
 <body>
 
     <div class="container mt-4" th:fragment="editEmpFragment">
-        <h2 class="text-center">Editing Employee <span class="text-primary" th:text="${emp.getFullName()}"></span></h2>
+        <h2 class="text-center">Editing Employee <span class="text-primary" th:text="${emp.fullName}"></span></h2>
 
         <form action="/editEmployee" method="post">
             <div class="mb-3">
 <!--                <label for="empId" class="form-label">Full Name</label>-->
-                <input type="number" class="form-control" hidden="hidden" th:value="${emp.getEmpId()}" name="empId" id="empId" aria-describedby="empId">
+                <input type="number" class="form-control" hidden="hidden" th:value="${emp.id" name="id" id="id" aria-describedby="id">
             </div>
             <div class="mb-3">
                 <label for="fullName" class="form-label">Full Name</label>
-                <input type="text" class="form-control" th:value="${emp.getFullName()}" name="fullName" id="fullName" aria-describedby="full_name">
+                <input type="text" class="form-control" th:value="${emp.fullName}" name="fullName" id="fullName" aria-describedby="full_name">
             </div>
             <div>
                 <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" th:value="${emp.getEmail()}" name="email" class="form-control" aria-describedby="email">
+                <input type="email" id="email" th:value="${emp.email}" name="email" class="form-control" aria-describedby="email">
             </div>
             <div class="mb-3">
                 <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" th:value="${emp.getAddress()}" name="address" id="address" aria-describedby="address">
+                <input type="text" class="form-control" th:value="${emp.address}" name="address" id="address" aria-describedby="address">
             </div>
             <div class="mb-3">
                 <label for="phone" class="form-label">Phone Number</label>
-                <input type="text" class="form-control" th:value="${emp.getPhone()}" name="phone" id="phone" aria-describedby="phone">
+                <input type="text" class="form-control" th:value="${emp.phone}" name="phone" id="phone" aria-describedby="phone">
             </div>
             <div class="mb-3">
                 <label for="joiningDate" class="form-label">Joining Date</label>
-                <input type="date" th:value="${emp.getJoiningDate()}" name="joiningDate" class="form-control" id="joiningDate">
+                <input type="date" th:value="${emp.joiningDate}" name="joiningDate" class="form-control" id="joiningDate">
             </div>
             <div class="mb-3">
 <!--                <label for="" class="form-label">Joining Date</label>-->
-                <input type="number" hidden="hidden" th:value="${emp.getProject()?.getProjectId()}" name="project" class="form-control" >
+                <input type="number" hidden="hidden" th:value="${emp.project?.id}" name="project" class="form-control" >
             </div>
             <div class="mb-3">
                 <label for="designation" class="form-label">Designation</label>

@@ -2,11 +2,8 @@ package com.dsi.dem.controller;
 
 import com.dsi.dem.model.Employee;
 import com.dsi.dem.model.Project;
-import com.dsi.dem.service.EmpService;
 import com.dsi.dem.service.EmployeeService;
-import com.dsi.dem.service.ProjService;
 import com.dsi.dem.service.ProjectService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,23 +29,15 @@ public class ProjectController {
         model.addAttribute("employees", employeeList);
         return "addProjectForm";
     }
+
     @PostMapping("/project")
-    public String handleAddProject(@ModelAttribute("projects") Project project) {
-        if(project.getEmployeeList() != null){
-            for(Employee e: project.getEmployeeList()){
-                e.setProject(project);
-                e.setStatus(1);
-            }
-        }
-
-        Project p = projectService.save(project);
-
+    public String handleAddProject(@ModelAttribute Project project) {
+        projectService.addEmployeesToProject(project);
+        projectService.save(project);
         return "redirect:/projects";
-
     }
 
     @GetMapping("/projects")
-
     public String showProjects(Model model) {
         List<Project> projects = projectService.getAll();
         model.addAttribute("projects", projects);
@@ -56,7 +45,8 @@ public class ProjectController {
     }
 
     @GetMapping("/projects/{id}")
-    public String showSingleProject(@PathVariable("id") int id , Model model) {
+    public String showSingleProject(@PathVariable("id") int id ,
+                                    Model model) {
         Project p = projectService.getById(id);
         model.addAttribute("project",p);
         LocalDate t1 = p.getStartDate();
@@ -70,30 +60,27 @@ public class ProjectController {
         return "project";
     }
 
-    @PostMapping("/addEmployeeToProject")
-    public String addEmpToProject(@RequestParam("projectId") int projId,@RequestParam("projectName") String projName, Model model){
+    @PostMapping("/addEmployeeToProject/{projectId}")
+    public String addEmpToProject(@PathVariable int projectId,
+                                  @RequestParam String projectName,
+                                  Model model) {
+
         List<Employee> employeeList = employeeService.getAvailableEmp(0);
         model.addAttribute("employees", employeeList);
-        model.addAttribute("proj_id", projId);
-        model.addAttribute("proj_name", projName);
-        return "AddEmpToProj";
+        model.addAttribute("projectId", projectId);
+        model.addAttribute("projectName", projectName);
+        return "AddEmployeeToProject";
     }
 
-    @PostMapping("/addEmpToProject")
+    @PostMapping("/addEmployeeToProject")
     public String addEmpToProject(@RequestParam("employeeList") List<Employee> employeeList,
                                   @RequestParam("projectId") int projectId,
                                   Model model) {
+
         Project project = projectService.getById(projectId);
-
-        if(!employeeList.isEmpty()) {
-            for(Employee e : employeeList) {
-                project.getEmployeeList().add(e);
-                e.setProject(project);
-                e.setStatus(1);
-            }
-        }
-
+        projectService.addMoreEmployeesToProject(project,employeeList);
         projectService.save(project);
+
         return "redirect:projects/"+projectId;
     }
 }

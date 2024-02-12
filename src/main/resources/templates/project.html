@@ -7,16 +7,16 @@
 <body>
     <div class="container mt-4"  th:fragment="project-div">
 
-        <h2 class="text-center py-2 rounded" style="background: #84cbff" th:text="${project.getProjectName()}"></h2>
+        <h2 class="text-center py-2 rounded" style="background: #84cbff" th:text="${project.projectName}"></h2>
         <div class="py-2">
             <h4>Description:</h4>
-            <p th:text="${project.getDescription()}"></p>
+            <p th:text="${project.description}"></p>
         </div>
 
         <div class="py-2">
             <p><strong>Date: </strong>
-                <span th:text="${project.getStartDate()}"></span> to
-                <span th:text="${project.getDeadline()}"></span>
+                <span th:text="${project.startDate}"></span> to
+                <span th:text="${project.deadline}"></span>
             </p>
             <p><strong>Duration: </strong><span th:text="${duration} + ' days. (' +
                 ${remaining} + ' days remaining)'"></span></p>
@@ -24,14 +24,14 @@
 
 
         <strong>Status:</strong>
-        <div th:with="status = ${project.getStatus()}" th:switch="${status}">
+        <div th:with="status = ${project.status}" th:switch="${status}">
             <p th:case="Ongoing" style="color: orangered">Ongoing</p>
             <p th:case="Finished" style="color: green">Finished</p>
             <p th:case="Maintenance" style="color: deepskyblue">Maintenance</p>
         </div>
 
 
-        <div th:with="employees = ${project.getEmployeeList()}">
+        <div th:with="employees = ${project.employeeList}">
             <h4 class="pb-2">Employees:</h4>
             <table class="table text-center table-success table-striped">
                 <thead>
@@ -44,15 +44,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="emp : ${employees}" th:with="uri = '/employee/'+${emp.getId()}">
-                    <td th:text="${emp.getId()}"></td>
+                <tr th:each="emp : ${employees}" th:with="uri = '/employees/'+${emp.id}">
+                    <td th:text="${emp.id}"></td>
                     <td><a th:href="${uri}" th:text="${emp.fullName}"></a></td>
                     <td th:text="${emp.designation}"></td>
                     <td th:text="${emp.joiningDate}"></td>
                     <td>
-                        <form action="/removeEmp" method="post">
-                            <input type="number" name="empId" th:value="${emp.getId()}" hidden="hidden">
-                            <input type="number" name="projId" th:value="${project.getId()}" hidden="hidden">
+                        <form action="/removeEmployee" method="post">
+                            <input type="number" name="employeeId" th:value="${emp.id}" hidden="hidden">
+                            <input type="number" name="projectId" th:value="${project.id}" hidden="hidden">
                             <button style="background: #C7DBD2" type="submit" class="border-0">
                                 <img style="width: 30px" src="/image/removeuser.png" alt="user.png">
                             </button>
@@ -63,9 +63,8 @@
             </table>
         </div>
 
-        <form class="text-center mt-5" action="/addEmployeeToProject" method="post">
-            <input type="number" hidden="hidden" name="projectId" th:value="${project.getId()}">
-            <input type="text" hidden="hidden" name="projectName" th:value="${project.getProjectName()}">
+        <form th:with="url = '/addEmployeeToProject/' + ${project.id}" class="text-center mt-5" th:action="${url}" method="post">
+            <input type="text" hidden="hidden" name="projectName" th:value="${project.projectName}">
             <button type="submit" class="border-0 bg-light">
                 <img style="width: 50px" src="/image/add-user.png" alt="">
                 <p>Add Employee</p>
