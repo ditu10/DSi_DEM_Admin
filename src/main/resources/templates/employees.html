@@ -22,12 +22,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="emp : ${employees}" th:with="uri = '/employee/'+${emp.getEmpId()}">
-                    <td th:text="${emp.empId}"></td>
-                    <td><a th:href="${uri}" th:text="${emp.fullName}"></a></td>
-                    <td th:text="${emp.designation}"></td>
-                    <td th:text="${emp.joiningDate}"></td>
-                    <td th:if="${emp.getProject()!=null}" th:with="uri = '/projects/'+${emp.getProject().getProjectId()}">
+                <tr th:each="emp : ${employees}" th:with="uri = '/employee/'+${emp.getId()}">
+                    <td th:text="${emp.getId()}"></td>
+                    <td><a th:href="${uri}" th:text="${emp.getFullName()}"></a></td>
+                    <td th:text="${emp.getDesignation()}"></td>
+                    <td th:text="${emp.getJoiningDate()}"></td>
+                    <td th:if="${emp.getProject()!=null}" th:with="uri = '/projects/'+${emp.getProject().getId()}">
                         <a th:href="${uri}"><span th:text="${emp.getProject().getProjectName()}"></span></a>
                     </td>
                     <td th:unless="${emp.getProject()!=null}" th:text="''"></td>

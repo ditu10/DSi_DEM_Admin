@@ -20,8 +20,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="proj : ${projects}" th:with="uri = '/projects/'+${proj.getProjectId()}">
-                <td th:text="${proj.getProjectId()}"></td>
+            <tr th:each="proj : ${projects}" th:with="uri = '/projects/'+${proj.getId()}">
+                <td th:text="${proj.getId()}"></td>
                 <td><a th:href="${uri}" th:text="${proj.getProjectName()}"></a></td>
                 <td th:text="${proj.getDescription().length()>100}?
                     ${proj.getDescription().substring(0,100)} + '...':

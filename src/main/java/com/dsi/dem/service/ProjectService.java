@@ -9,20 +9,24 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProjServiceImpl implements ProjService{
-    @Autowired
+public class ProjectService{
     ProjRepository projRepository;
-    @Override
+
+    public ProjectService(ProjRepository projRepository) {
+        this.projRepository = projRepository;
+    }
+
+
     public List<Project> getAll() {
         return projRepository.findAll();
     }
 
-    @Override
+
     public Project save(Project project){
         return projRepository.save(project);
     }
 
-    @Override
+
     public Project getById(int id) {
         Optional<Project> opt = projRepository.findById(id);
         if(opt.isPresent()){

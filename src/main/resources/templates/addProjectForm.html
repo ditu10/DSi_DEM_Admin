@@ -5,7 +5,7 @@
     <title>add project</title>
 </head>
 <body>
-    <div style="background: #C7DBD2"  class="container py-4 px-2 text-dark bg-opacity-50 mt-4" th:fragment="projectFormDiv">
+    <div style="background: #C7DBD2"  class="container p-4 text-dark bg-opacity-50 mt-4" th:fragment="projectFormDiv">
         <h2 class="text-center">Add a new Project</h2>
         <form th:action="@{/project}" method="post">
             <div class="mb-3">
@@ -30,14 +30,14 @@
             <div class="mb-3">
                 <label for="employeeList" class="form-label">Available Employees</label>
                 <select id="employeeList"  class="form-select border-3" name="employeeList" multiple="multiple">
-                    <option th:each="emp: ${employees}" th:value="${emp.getEmpId()}">
-                        <span th:text="${emp.getEmpId()} + ' : ' + ${emp.getFullName()} + ' (' + ${emp.getDesignation()} + ')'"></span>
+                    <option th:each="emp: ${employees}" th:value="${emp.getId()}">
+                        <span th:text="${emp.getId()} + ' : ' + ${emp.getFullName()} + ' (' + ${emp.getDesignation()} + ')'"></span>
                     </option>
                 </select>
             </div>
 
             <div class="mb-3">
-                <label for="status" class="form-label">Select Employees</label>
+                <label for="status" class="form-label">Select Project Status</label>
                 <select id="status" class="form-select" name="status">
                     <option selected value="Ongoing">Ongoing</option>
                     <option value="Finished">Finished</option>

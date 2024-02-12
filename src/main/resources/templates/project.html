@@ -44,15 +44,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="emp : ${employees}" th:with="uri = '/employee/'+${emp.getEmpId()}">
-                    <td th:text="${emp.empId}"></td>
+                <tr th:each="emp : ${employees}" th:with="uri = '/employee/'+${emp.getId()}">
+                    <td th:text="${emp.getId()}"></td>
                     <td><a th:href="${uri}" th:text="${emp.fullName}"></a></td>
                     <td th:text="${emp.designation}"></td>
                     <td th:text="${emp.joiningDate}"></td>
                     <td>
                         <form action="/removeEmp" method="post">
-                            <input type="number" name="empId" th:value="${emp.getEmpId()}" hidden="hidden">
-                            <input type="number" name="projId" th:value="${project.getProjectId()}" hidden="hidden">
+                            <input type="number" name="empId" th:value="${emp.getId()}" hidden="hidden">
+                            <input type="number" name="projId" th:value="${project.getId()}" hidden="hidden">
                             <button style="background: #C7DBD2" type="submit" class="border-0">
                                 <img style="width: 30px" src="/image/removeuser.png" alt="user.png">
                             </button>
@@ -64,7 +64,7 @@
         </div>
 
         <form class="text-center mt-5" action="/addEmployeeToProject" method="post">
-            <input type="number" hidden="hidden" name="projectId" th:value="${project.getProjectId()}">
+            <input type="number" hidden="hidden" name="projectId" th:value="${project.getId()}">
             <input type="text" hidden="hidden" name="projectName" th:value="${project.getProjectName()}">
             <button type="submit" class="border-0 bg-light">
                 <img style="width: 50px" src="/image/add-user.png" alt="">

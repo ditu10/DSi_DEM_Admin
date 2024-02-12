@@ -10,13 +10,12 @@ import java.time.LocalDate;
 @Entity
 public class Employee {
     @Id
-    @Column(name = "emp_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int empId;
-    @Column(name = "full_name")
+    private int id;
+//    @Column(name = "full_name")
     private String fullName;
     private String email;
-    @Column(name = "joining_date")
+//    @Column(name = "joining_date")
     private LocalDate joiningDate;
     private String designation;
     private String address;
@@ -24,15 +23,14 @@ public class Employee {
     private int status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JsonBackReference
     @JsonIgnore
     private Project project;
 
     public Employee() {
     }
 
-    public Employee(int empId, String fullName, String email, LocalDate joiningDate, String designation, String address, String phone, int status, Project project) {
-        this.empId = empId;
+    public Employee(int id, String fullName, String email, LocalDate joiningDate, String designation, String address, String phone, int status, Project project) {
+        this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.joiningDate = joiningDate;
@@ -83,12 +81,12 @@ public class Employee {
         this.project = project;
     }
 
-    public int getEmpId() {
-        return empId;
+    public int getId() {
+        return id;
     }
 
-    public void setEmpId(int empId) {
-        this.empId = empId;
+    public void setEmpId(int id) {
+        this.id = id;
     }
 
     public String getFullName() {

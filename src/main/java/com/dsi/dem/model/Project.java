@@ -1,36 +1,27 @@
 package com.dsi.dem.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Cascade;
 
 import java.time.LocalDate;
 import java.util.List;
-//enum status{
-//    Running,
-//    Finished,
-//    Delivered,
-//    Maintenance
-//}
+
 
 @Entity
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "proj_id")
-    private int projectId;
-    @Column(name = "proj_name")
+    private int id;
+//    @Column(name = "proj_name")
     private String projectName;
     @Column(length = 5000)
     private String description;
     private String Status;
-    @Column(name = "start_date")
+//    @Column(name = "start_date")
     private LocalDate startDate;
     private LocalDate deadline;
 
-    @OneToMany(mappedBy = "project" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "project" , cascade = CascadeType.ALL)
 //    @JsonManagedReference
     @JsonIgnore
     private List<Employee> employeeList;
@@ -64,12 +55,12 @@ public class Project {
         this.deadline = deadline;
     }
 
-    public int getProjectId() {
-        return projectId;
+    public int getId() {
+        return id;
     }
 
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getProjectName() {
@@ -99,7 +90,7 @@ public class Project {
     @Override
     public String toString() {
         return "Project{" +
-                "projectId=" + projectId +
+                "id=" + id +
                 ", projectName='" + projectName + '\'' +
                 ", description='" + description + '\'' +
                 ", Status='" + Status + '\'' +
