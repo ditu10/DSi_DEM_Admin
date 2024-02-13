@@ -12,7 +12,7 @@
         <form action="/editEmployee" method="post">
             <div class="mb-3">
 <!--                <label for="empId" class="form-label">Full Name</label>-->
-                <input type="number" hidden="hidden" class="form-control" th:value="${emp.id}" name="id" >
+                <input type="number" hidden="hidden" class="form-control" th:value="${emp.id}" th:name="id" >
             </div>
             <div class="mb-3">
                 <label for="fullName" class="form-label">Full Name</label>
@@ -40,12 +40,14 @@
             </div>
             <div class="mb-3">
                 <label for="designation" class="form-label">Designation</label>
-                <select  id="designation" class="form-select" name="designation">
-                    <option value="Junior Software Engineer">Junior Software Engineer</option>
-                    <option value="Assistant Software Engineer">Assistant Software Engineer</option>
-                    <option value="Associate Software Engineer">Associate Software Engineer</option>
-                    <option value="Software Engineer">Software Engineer</option>
-                    <option value="Sr. Software Engineer">Sr. Software Engineer</option>
+                <select th:with="currentDesignation = ${emp.designation}" id="designation" class="form-select" name="designation">
+                    <option value="Junior Software Engineer" th:selected="${currentDesignation} == 'Junior Software Engineer'">
+                        Junior Software Engineer
+                    </option>
+                    <option value="Assistant Software Engineer" th:selected="${currentDesignation} == 'Assistant Software Engineer'">Assistant Software Engineer</option>
+                    <option value="Associate Software Engineer" th:selected="${currentDesignation} == 'Associate Software Engineer'">Associate Software Engineer</option>
+                    <option value="Software Engineer" th:selected="${currentDesignation} == 'Software Engineer'">Software Engineer</option>
+                    <option value="Sr. Software Engineer" th:selected="${currentDesignation} == 'Sr. Software Engineer'">Sr. Software Engineer</option>
                 </select>
             </div>
             <div class="mb-3">

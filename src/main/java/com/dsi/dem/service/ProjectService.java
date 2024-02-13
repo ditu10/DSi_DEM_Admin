@@ -5,6 +5,7 @@ import com.dsi.dem.model.Employee;
 import com.dsi.dem.model.Project;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +53,20 @@ public class ProjectService{
                 e.setStatus(1);
             }
         }
+    }
+
+    public List<Employee> employeeListAfterRemovingEmployeeFromProject(Project project, int employeeId){
+        List<Employee> newEmployeeList = new ArrayList<>();
+        for(Employee employee : project.getEmployeeList()){
+            if(employee.getId() == employeeId){
+                System.out.println(employee.getId() + " " + employee.getFullName());
+                employee.setStatus(0);
+                employee.setProject(null);
+            }else{
+                newEmployeeList.add(employee);
+            }
+        }
+        return newEmployeeList;
     }
 
 

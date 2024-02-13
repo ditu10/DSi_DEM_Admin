@@ -58,19 +58,9 @@ public class EmployeeController {
     @PostMapping("/removeEmployee")
     public String handleRemoveEmployeeFromProject(@RequestParam int employeeId, @RequestParam int projectId){
         Project project = projectService.getById(projectId);
-        List<Employee> newEmpList = new ArrayList<>();
 
-        for(Employee employee : project.getEmployeeList()){
-            if(employee.getId() == employeeId){
-                System.out.println(employee.getId() + " " + employee.getFullName());
-//                project.getEmployeeList().remove(employee);
-                employee.setStatus(0);
-                employee.setProject(null);
-            }else{
-                newEmpList.add(employee);
-            }
-        }
-        project.setEmployeeList(newEmpList);
+        List<Employee> newEmployeeList = projectService.employeeListAfterRemovingEmployeeFromProject(project,employeeId);
+        project.setEmployeeList(newEmployeeList);
         projectService.save(project);
         return "redirect:/projects/"+projectId;
     }
@@ -78,18 +68,12 @@ public class EmployeeController {
     @GetMapping("/editEmployee/{id}")
     public String editEmployee(@PathVariable int id, Model model){
         Employee emp = employeeService.getEmployeeById(id);
-        System.out.println("\n\n");
-        System.out.println(emp);
-        System.out.println("\n\n");
         model.addAttribute("emp", emp);
         return "editEmployeeForm";
     }
 
     @PostMapping("/editEmployee")
     public String editEmpDetails(@ModelAttribute Employee employee, Model model){
-        System.out.println("\n\n");
-        System.out.println(employee);
-        System.out.println("\n\n");
         Employee emp = employeeService.save(employee);
         model.addAttribute(emp);
 
