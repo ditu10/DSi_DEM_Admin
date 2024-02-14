@@ -5,9 +5,9 @@ import com.dsi.dem.model.Employee;
 import com.dsi.dem.model.Project;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 @Service
 public class ProjectService{
@@ -67,6 +67,21 @@ public class ProjectService{
             }
         }
         return newEmployeeList;
+    }
+
+    public Map<String , Long> getProjectDurationDetails(Project project) {
+        Map<String , Long> projectDurationDetails = new HashMap<>();
+        LocalDate startDate = project.getStartDate();
+        LocalDate deadline = project.getDeadline();
+        LocalDate today = LocalDate.now();
+        long durationInDays = ChronoUnit.DAYS.between(startDate, deadline);
+        long remainingInDays = ChronoUnit.DAYS.between(today, deadline);
+
+        projectDurationDetails.put("durationInDays", durationInDays);
+        projectDurationDetails.put("remainingInDays", remainingInDays);
+
+        return projectDurationDetails;
+
     }
 
 

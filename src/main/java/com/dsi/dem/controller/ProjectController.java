@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ProjectController {
@@ -45,17 +47,14 @@ public class ProjectController {
     }
 
     @GetMapping("/projects/{id}")
-    public String showSingleProject(@PathVariable("id") int id ,
+    public String showSingleProject(@PathVariable int id ,
                                     Model model) {
-        Project p = projectService.getById(id);
-        model.addAttribute("project",p);
-        LocalDate t1 = p.getStartDate();
-        LocalDate t2 = p.getDeadline();
-        LocalDate today = LocalDate.now();
-        long daysDifference = ChronoUnit.DAYS.between(t1, t2);
-        long remaining = ChronoUnit.DAYS.between(today, t2);
-        model.addAttribute("duration",daysDifference);
-        model.addAttribute("remaining",remaining);
+        Project project = projectService.getById(id);
+        Map<String , Long> projectDurationDetails = projectService.getProjectDurationDetails(project);
+
+        model.addAttribute("project",project);
+        model.addAttribute("duration",projectDurationDetails.get("durationInDays"));
+        model.addAttribute("remaining",projectDurationDetails.get("remainingInDays"));
 
         return "project";
     }
