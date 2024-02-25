@@ -4,6 +4,7 @@ import com.dsi.dem.model.Employee;
 import com.dsi.dem.model.Project;
 import com.dsi.dem.service.*;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +21,12 @@ public class EmployeeController {
     // by matching the types of the parameters with the beans defined in the context
     private final EmployeeService employeeService;
     private final ProjectService projectService;
+    private final int pageSize;
 
     public EmployeeController(EmployeeService employeeService, ProjectService projectService) {
         this.employeeService = employeeService;
         this.projectService = projectService;
+        pageSize = 3;
     }
 
     @GetMapping("/addEmployee")
@@ -34,15 +37,30 @@ public class EmployeeController {
     @PostMapping("/employee")
     public String handleAddEmployee(@ModelAttribute Employee employee){
         employeeService.save(employee);
-        return "redirect:/employees";
+        return "redirect:/employees?page=0";
     }
 
     @GetMapping("/employees")
-    public String showEmployees(Model model){
-        List<Employee> employeeList = employeeService.getAll();
+    public String showEmployees(@RequestParam int page,
+                                Model model){
+        Page<Employee> employeeList = employeeService.getAllEmployeeByPage(page-1,pageSize);
+        int totalPage = employeeList.getTotalPages();
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("currentPage", page);
+        System.out.println("");
+        System.out.println("currentPage = " + page);
+        System.out.println("TotalPage = " + totalPage);
+        System.out.println("");
         model.addAttribute("employees", employeeList);
         return "employees";
     }
+
+//    @GetMapping("/employees")
+//    public String showEmployees(Model model) {
+//        List<Employee> employeeList = employeeService.getAll();
+//        model.addAttribute("employees", employeeList);
+//        return "employees";
+//    }
 
     @GetMapping("/employees/{id}")
     public String showEmployee(@PathVariable int id, Model model){
