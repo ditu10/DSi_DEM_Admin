@@ -47,20 +47,10 @@ public class EmployeeController {
         int totalPage = employeeList.getTotalPages();
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("currentPage", page);
-        System.out.println("");
-        System.out.println("currentPage = " + page);
-        System.out.println("TotalPage = " + totalPage);
-        System.out.println("");
         model.addAttribute("employees", employeeList);
         return "employees";
     }
 
-//    @GetMapping("/employees")
-//    public String showEmployees(Model model) {
-//        List<Employee> employeeList = employeeService.getAll();
-//        model.addAttribute("employees", employeeList);
-//        return "employees";
-//    }
 
     @GetMapping("/employees/{id}")
     public String showEmployee(@PathVariable int id, Model model){

@@ -3,6 +3,9 @@ package com.dsi.dem.service;
 import com.dsi.dem.dao.ProjectRepository;
 import com.dsi.dem.model.Employee;
 import com.dsi.dem.model.Project;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -20,6 +23,11 @@ public class ProjectService{
 
     public List<Project> getAll() {
         return projectRepository.findAll();
+    }
+
+    public Page<Project> getAllProjectsByPage(int page, int size) {
+        Pageable pageable = PageRequest.of(page,size);
+        return projectRepository.findAll(pageable);
     }
 
 

@@ -4,6 +4,7 @@ import com.dsi.dem.model.Employee;
 import com.dsi.dem.model.Project;
 import com.dsi.dem.service.EmployeeService;
 import com.dsi.dem.service.ProjectService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +20,12 @@ public class ProjectController {
 
     private final EmployeeService employeeService;
     private final ProjectService projectService;
+    private final int pageSize;
 
     public ProjectController(EmployeeService employeeService, ProjectService projectService) {
         this.employeeService = employeeService;
         this.projectService = projectService;
+        this.pageSize = 3;
     }
 
     @GetMapping("/addProject")
@@ -36,12 +39,17 @@ public class ProjectController {
     public String handleAddProject(@ModelAttribute Project project) {
         projectService.addEmployeesToProject(project);
         projectService.save(project);
-        return "redirect:/projects";
+        return "redirect:/projects?page=1";
     }
 
     @GetMapping("/projects")
-    public String showProjects(Model model) {
-        List<Project> projects = projectService.getAll();
+    public String showProjects(@RequestParam int page,
+                               Model model) {
+        Page<Project> projects = projectService.getAllProjectsByPage(page-1,pageSize);
+        int totalPage = projects.getTotalPages();
+
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("currentPage", page);
         model.addAttribute("projects", projects);
         return "projects";
     }
