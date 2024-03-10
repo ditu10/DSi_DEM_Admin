@@ -5,9 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-    <div  style="background: #C7DBD2"  class="container p-4 text-dark bg-opacity-50 mt-4" th:fragment="main" th:with="uri = '/projects/' + ${projectId}">
+    <div  style="background: #C7DBD2"  class="container p-4 text-dark bg-opacity-50 mt-4" th:fragment="main" th:with="uri = '/admin/projects/' + ${projectId}">
         <h2 class="text-center">Add Employees to the <a style=" text-decoration: none" th:href="${uri}"><span style="color: brown;"  th:text="${projectName}"></span></a> Project</h2>
-        <form th:action="@{/addEmployeeToProject}" method="post">
+        <form th:action="@{/admin/addEmployeeToProject}" method="post">
 
             <input type="number" hidden="hidden" name="projectId" th:value="${projectId}">
 

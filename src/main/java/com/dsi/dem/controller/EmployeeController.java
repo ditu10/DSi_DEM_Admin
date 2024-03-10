@@ -2,6 +2,9 @@ package com.dsi.dem.controller;
 
 import com.dsi.dem.model.Employee;
 import com.dsi.dem.model.Project;
+import com.dsi.dem.model.User;
+import com.dsi.dem.repository.UserRepository;
+import com.dsi.dem.security.AppUserDetailsService;
 import com.dsi.dem.service.*;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
@@ -9,11 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/admin")
 public class EmployeeController {
 
     // when A class has a constructor with parameters,
@@ -21,12 +26,22 @@ public class EmployeeController {
     // by matching the types of the parameters with the beans defined in the context
     private final EmployeeService employeeService;
     private final ProjectService projectService;
+    private final UserRepository userRepository;
+    private final UserService userService;
     private final int pageSize;
 
-    public EmployeeController(EmployeeService employeeService, ProjectService projectService) {
+    public EmployeeController(EmployeeService employeeService, ProjectService projectService, UserRepository userRepository, UserService userService) {
         this.employeeService = employeeService;
         this.projectService = projectService;
+        this.userRepository = userRepository;
+        this.userService = userService;
+
         pageSize = 3;
+    }
+
+    @ModelAttribute
+    public User getUser(Principal principal) {
+        return userRepository.getUserByEmail(principal.getName());
     }
 
     @GetMapping("/addEmployee")
@@ -34,10 +49,13 @@ public class EmployeeController {
         return "AddEmployeeForm";
     }
 
-    @PostMapping("/employee")
-    public String handleAddEmployee(@ModelAttribute Employee employee){
+    @PostMapping("/process-employee")
+    public String handleAddEmployee(@ModelAttribute Employee employee, @RequestParam String password) {
+        User user = userService.addAdditionalInformationForUser(employee,password);
+        userRepository.save(user);
+//        userRepository.save()
         employeeService.save(employee);
-        return "redirect:/employees?page=0";
+        return "redirect:/admin/employees?page=1";
     }
 
     @GetMapping("/employees")
@@ -70,7 +88,7 @@ public class EmployeeController {
         List<Employee> newEmployeeList = projectService.employeeListAfterRemovingEmployeeFromProject(project,employeeId);
         project.setEmployeeList(newEmployeeList);
         projectService.save(project);
-        return "redirect:/projects/"+projectId;
+        return "redirect:/admin/projects/"+projectId;
     }
 
     @GetMapping("/editEmployee/{id}")
@@ -81,10 +99,10 @@ public class EmployeeController {
     }
 
     @PostMapping("/editEmployee")
-    public String editEmpDetails(@ModelAttribute Employee employee, Model model){
+    public String editEmpDetails(@ModelAttribute Employee employee, Model model) {
         Employee emp = employeeService.save(employee);
         model.addAttribute(emp);
 
-        return "redirect:/employees/"+emp.getId();
+        return "redirect:/admin/employees/"+emp.getId();
     }
 }

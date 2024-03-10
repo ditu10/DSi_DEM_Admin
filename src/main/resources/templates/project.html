@@ -44,13 +44,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="emp : ${employees}" th:with="uri = '/employees/'+${emp.id}">
+                <tr th:each="emp : ${employees}" th:with="uri = '/admin/employees/'+${emp.id}">
                     <td th:text="${emp.id}"></td>
                     <td><a th:href="${uri}" th:text="${emp.fullName}"></a></td>
                     <td th:text="${emp.designation}"></td>
                     <td th:text="${emp.joiningDate}"></td>
                     <td>
-                        <form action="/removeEmployee" method="post">
+                        <form th:action="@{/admin/removeEmployee}" method="post">
                             <input type="number" name="employeeId" th:value="${emp.id}" hidden="hidden">
                             <input type="number" name="projectId" th:value="${project.id}" hidden="hidden">
                             <button style="background: #C7DBD2" type="submit" class="border-0">
@@ -63,7 +63,7 @@
             </table>
         </div>
 
-        <form th:with="url = '/addEmployeeToProject/' + ${project.id}" class="text-center mt-5" th:action="${url}" method="post">
+        <form th:with="url = '/admin/addEmployeeToProject/' + ${project.id}" class="text-center mt-5" th:action="${url}" method="post">
             <input type="text" hidden="hidden" name="projectName" th:value="${project.projectName}">
             <button type="submit" class="border-0 bg-light">
                 <img style="width: 50px" src="/image/add-user.png" alt="">

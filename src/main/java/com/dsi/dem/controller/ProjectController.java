@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/admin")
 public class ProjectController {
 
     private final EmployeeService employeeService;
@@ -39,7 +40,7 @@ public class ProjectController {
     public String handleAddProject(@ModelAttribute Project project) {
         projectService.addEmployeesToProject(project);
         projectService.save(project);
-        return "redirect:/projects?page=1";
+        return "redirect:/admin/projects?page=1";
     }
 
     @GetMapping("/projects")
@@ -88,6 +89,6 @@ public class ProjectController {
         projectService.addMoreEmployeesToProject(project,employeeList);
         projectService.save(project);
 
-        return "redirect:projects/"+projectId;
+        return "redirect:/admin/projects/"+projectId;
     }
 }

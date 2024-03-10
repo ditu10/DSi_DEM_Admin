@@ -1,8 +1,7 @@
 package com.dsi.dem.service;
 
-import com.dsi.dem.dao.EmployeeRepository;
+import com.dsi.dem.repository.EmployeeRepository;
 import com.dsi.dem.model.Employee;
-import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

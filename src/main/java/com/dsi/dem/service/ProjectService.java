@@ -1,6 +1,6 @@
 package com.dsi.dem.service;
 
-import com.dsi.dem.dao.ProjectRepository;
+import com.dsi.dem.repository.ProjectRepository;
 import com.dsi.dem.model.Employee;
 import com.dsi.dem.model.Project;
 import org.springframework.data.domain.Page;

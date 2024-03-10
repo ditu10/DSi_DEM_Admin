@@ -1,4 +1,4 @@
-package com.dsi.dem.dao;
+package com.dsi.dem.repository;
 
 import com.dsi.dem.model.Project;
 import org.springframework.data.jpa.repository.JpaRepository;

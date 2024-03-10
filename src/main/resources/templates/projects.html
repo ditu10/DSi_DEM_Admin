@@ -20,7 +20,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="project : ${projects}" th:with="uri = '/projects/'+${project.id}">
+            <tr th:each="project : ${projects}" th:with="uri = '/admin/projects/'+${project.id}">
                 <td th:text="${project.id}"></td>
                 <td><a th:href="${uri}" th:text="${project.projectName}"></a></td>
                 <td th:text="${project.description.length()>100}?
@@ -35,15 +35,15 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li th:classappend="${currentPage == 1}? 'disabled' : ''" class="page-item">
-                    <a class="page-link" th:href="@{'/projects?page=' + ${currentPage -1}}">Previous</a>
+                    <a class="page-link" th:href="@{'/admin/projects?page=' + ${currentPage -1}}">Previous</a>
                 </li>
 
                 <li th:classappend="${currentPage == page}? 'active' : ''" th:each="page : ${#numbers.sequence(1, totalPage)}" class="page-item">
-                    <a class="page-link" th:href="@{'/projects?page=' + ${page}}" th:text="${page}"></a>
+                    <a class="page-link" th:href="@{'/admin/projects?page=' + ${page}}" th:text="${page}"></a>
                 </li>
 
                 <li th:classappend="${currentPage == totalPage}? 'disabled' : ''" class="page-item">
-                    <a class="page-link" th:href="@{'/projects?page=' + ${currentPage +1}}">Next</a>
+                    <a class="page-link" th:href="@{'/admin/projects?page=' + ${currentPage +1}}">Next</a>
                 </li>
             </ul>
         </nav>

@@ -1,4 +1,4 @@
-package com.dsi.dem.dao;
+package com.dsi.dem.repository;
 
 import com.dsi.dem.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,6 +17,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query(value = "update employee set project_id =:pid , status =:status where id =:eid" , nativeQuery = true)
     Employee updateEmp(@Param("pid") int pid, @Param("status") int status, @Param("eid") int eid);
 
+    Employee getEmployeeByEmail(String email);
     List<Employee> getEmployeesByStatusEquals(int status);
 
 }

@@ -7,7 +7,7 @@
 <body>
     <div style="background: #C7DBD2"  class="container p-4 text-dark bg-opacity-50 mt-4" th:fragment="projectFormDiv">
         <h2 class="text-center">Add a new Project</h2>
-        <form th:action="@{/project}" method="post">
+        <form th:action="@{/admin/project}" method="post">
             <div class="mb-3">
                 <label for="projectName" class="form-label">Project Name</label>
                 <input type="text" class="form-control" name="projectName" id="projectName" required aria-describedby="projectName">

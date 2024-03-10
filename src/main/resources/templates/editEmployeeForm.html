@@ -9,7 +9,7 @@
     <div class="container mt-4" th:fragment="editEmpFragment">
         <h2 class="text-center">Editing Employee <span class="text-primary" th:text="${emp.fullName}"></span></h2>
 
-        <form action="/editEmployee" method="post">
+        <form th:action="@{/admin/editEmployee}" method="post">
             <div class="mb-3">
 <!--                <label for="empId" class="form-label">Full Name</label>-->
                 <input type="number" hidden="hidden" class="form-control" th:value="${emp.id}" th:name="id" >
