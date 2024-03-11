@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -104,5 +105,18 @@ public class EmployeeController {
         model.addAttribute(emp);
 
         return "redirect:/admin/employees/"+emp.getId();
+    }
+
+    @PostMapping("/deleteEmployee")
+    public String hardDeleteEmployee(@RequestParam int id,
+                                     RedirectAttributes attributes) {
+        System.out.println("id = " + id);
+        Employee employee = employeeService.getEmployeeById(id);
+        User user = userRepository.getUserByEmail(employee.getEmail());
+        userRepository.delete(user);
+        employeeService.hardDeleteEmployee(id);
+
+        attributes.addFlashAttribute("success" , "Employee deleted successfully!!");
+        return "redirect:/admin/employees?page=1";
     }
 }

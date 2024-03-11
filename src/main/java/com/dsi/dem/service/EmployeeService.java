@@ -51,6 +51,10 @@ public class EmployeeService{
         return employeeRepository.updateEmp(pid,status,eid);
     }
 
+    public void hardDeleteEmployee (int id) {
+        employeeRepository.deleteById(id);
+    }
+
 
     public List<Employee> getAvailableEmp(int status) {
         return employeeRepository.getEmployeesByStatusEquals(status);

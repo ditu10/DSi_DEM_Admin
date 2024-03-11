@@ -15,7 +15,7 @@ public class UserService {
         User user = new User();
         user.setEmail(employee.getEmail());
         user.setPassword(passwordEncoder.encode(password));
-        user.setRoles("USER");
+        user.setRoles("ROLE_USER");
         user.setEnabled(true);
         return user;
     }

@@ -2,6 +2,8 @@ package com.dsi.dem.controller;
 
 import com.dsi.dem.model.Employee;
 import com.dsi.dem.model.Project;
+import com.dsi.dem.model.User;
+import com.dsi.dem.repository.UserRepository;
 import com.dsi.dem.service.EmployeeService;
 import com.dsi.dem.service.ProjectService;
 import org.springframework.data.domain.Page;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
@@ -21,12 +24,20 @@ public class ProjectController {
 
     private final EmployeeService employeeService;
     private final ProjectService projectService;
+    private final UserRepository userRepository;
+
     private final int pageSize;
 
-    public ProjectController(EmployeeService employeeService, ProjectService projectService) {
+    public ProjectController(EmployeeService employeeService, ProjectService projectService, UserRepository userRepository) {
         this.employeeService = employeeService;
         this.projectService = projectService;
+        this.userRepository = userRepository;
         this.pageSize = 3;
+    }
+
+    @ModelAttribute
+    public User getUser(Principal principal) {
+        return userRepository.getUserByEmail(principal.getName());
     }
 
     @GetMapping("/addProject")
@@ -56,7 +67,7 @@ public class ProjectController {
     }
 
     @GetMapping("/projects/{id}")
-    public String showSingleProject(@PathVariable int id ,
+    public String showSingleProject(@PathVariable int id,
                                     Model model) {
         Project project = projectService.getById(id);
         Map<String , Long> projectDurationDetails = projectService.getProjectDurationDetails(project);
