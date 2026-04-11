@@ -1,0 +1,32 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: dem_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "@dsi"
+      MYSQL_DATABASE: dem_admin
+    ports:
+      - "3306:3306"
+    volumes:
+      - dem_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p@dsi"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: dem_app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/dem_admin
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: "@dsi"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  dem_mysql_data:
